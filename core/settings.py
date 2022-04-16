@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # apps
     'posts',
+    'bot_app',
 ]
 
 MIDDLEWARE = [

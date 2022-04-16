@@ -20,6 +20,7 @@ schema_view = get_schema_view(
 
 api_urlpatterns = [
     path('posts/',include('posts.urls')),
+    path('bot/',include('bot_app.urls'))
 ]
 
 urlpatterns = [
