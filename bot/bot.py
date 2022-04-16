@@ -38,28 +38,18 @@ def send_mess(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
-    print(call.data)
-    print("http://127.0.0.1:8000/api/v1/bot/test/"+str(call.data))
     questions = requests.get(url="http://127.0.0.1:8000/api/v1/bot/test/"+str(call.data)).json()
-    print(call.message.chat.id)
     
     for i in questions:
         markup_inline = telebot.types.InlineKeyboardMarkup()
-        # keyBoards = list()
-        # for x in i.get('answers'):
-        #     keyBoards.append(telebot.types.InlineKeyboardButton(x.get('title'),callback_data=f"Ответ {i.get("id")} {x.get("id")}"))
         keyBoards = [
             telebot.types.InlineKeyboardButton(
             x.get("title"),
-            callback_data=f"Ответ {i.get('id')} {x.get('id')}")  for x in i.get('answers')] #
-        print(i.get('title'))
-        print(keyBoards)
+            callback_data=f"Ответ {i.get('id')} {x.get('id')}")  
+            for x in i.get('answers')] 
         markup_inline.add(*keyBoards)
         bot.send_message(call.message.chat.id,text=i.get('title'),reply_markup=markup_inline)
-    # print(questions)
-    bot.send_message(call.message.chat.id,'cе тут')
-    markup_inline = telebot.types.InlineKeyboardMarkup()
-    answers = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in questions]
+
 
 if __name__ == "__main__":
     bot.polling(none_stop=True)
