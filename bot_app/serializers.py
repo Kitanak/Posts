@@ -34,7 +34,7 @@ class QuectionSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
-            'test'
+            'test',
             'answers'
             )
 
