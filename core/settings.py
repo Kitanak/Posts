@@ -3,8 +3,6 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-
 SECRET_KEY = 'django-insecure-n5=8f2puj=oxo3dac7c-2=43&v^$mv%ja3e7$-@1i&r7cv&mn6'
 
 DEBUG = True
@@ -30,6 +28,7 @@ INSTALLED_APPS = [
     # packages
     'rest_framework',
     'drf_yasg',
+    'django_filters',
 
     # apps
     'posts',
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -101,10 +101,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
