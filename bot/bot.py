@@ -44,7 +44,7 @@ def callback_query(call):
     print(questions)
     bot.send_message(call.message.chat.id,'cе тут')
     markup_inline = telebot.types.InlineKeyboardMarkup()
-    keyboards = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in questions]
-    # print(questions)
+    answers = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in questions]
+
 if __name__ == "__main__":
     bot.polling(none_stop=True)

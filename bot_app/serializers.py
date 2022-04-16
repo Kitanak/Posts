@@ -15,17 +15,6 @@ class TestSerializer(serializers.ModelSerializer):
             )
 
 
-class QuectionSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Quection
-        fields = (
-            'id',
-            'title',
-            'test'
-            )
-
-
 class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -34,6 +23,19 @@ class AnswerSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'quection',
+            )
+
+
+class QuectionSerializer(serializers.ModelSerializer):
+    answers = AnswerSerializer(many=True,read_only=True)
+    
+    class Meta:
+        model = Quection
+        fields = (
+            'id',
+            'title',
+            'test'
+            'answers'
             )
 
 
