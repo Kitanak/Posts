@@ -4,6 +4,7 @@ from posts.models import (
     Category,
     Subcategory,
     Product,
+    Image,
 )
 
 
@@ -24,6 +25,7 @@ class SubcategorySerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "title",
+            'category',
         )
 
 
@@ -35,6 +37,23 @@ class ProductSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "descriptions",
-            "image",
+            "images",
             "price",
+
+            'subcategory',
         )
+        read_only_fields = (
+            'images',
+        )
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Image
+        fields = (
+            "id",
+            "image",
+            "product",
+        )
+
