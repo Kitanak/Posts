@@ -27,7 +27,8 @@ def send_mess(message):
     
     markup_inline = telebot.types.InlineKeyboardMarkup()
     # надо доделать так, чтобы при создании кнопок префиксом был "вопрос" или "ответ", чтобы можно было переделать
-    keyboards = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in tests]
+    keyboards = [
+        telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in tests]
     markup_inline.add(*keyboards)
     bot.send_message(
         message.chat.id, "Тесты",
@@ -41,7 +42,21 @@ def callback_query(call):
     print("http://127.0.0.1:8000/api/v1/bot/test/"+str(call.data))
     questions = requests.get(url="http://127.0.0.1:8000/api/v1/bot/test/"+str(call.data)).json()
     print(call.message.chat.id)
-    print(questions)
+    
+    for i in questions:
+        markup_inline = telebot.types.InlineKeyboardMarkup()
+        # keyBoards = list()
+        # for x in i.get('answers'):
+        #     keyBoards.append(telebot.types.InlineKeyboardButton(x.get('title'),callback_data=f"Ответ {i.get("id")} {x.get("id")}"))
+        keyBoards = [
+            telebot.types.InlineKeyboardButton(
+            x.get("title"),
+            callback_data=f"Ответ {i.get('id')} {x.get('id')}")  for x in i.get('answers')] #
+        print(i.get('title'))
+        print(keyBoards)
+        markup_inline.add(*keyBoards)
+        bot.send_message(call.message.chat.id,text=i.get('title'),reply_markup=markup_inline)
+    # print(questions)
     bot.send_message(call.message.chat.id,'cе тут')
     markup_inline = telebot.types.InlineKeyboardMarkup()
     answers = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in questions]

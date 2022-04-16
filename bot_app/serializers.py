@@ -23,6 +23,7 @@ class AnswerSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'quection',
+            'correct',
             )
 
 
