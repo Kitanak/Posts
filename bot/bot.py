@@ -26,6 +26,7 @@ def send_mess(message):
     tests = requests.get(url="http://127.0.0.1:8000/api/v1/bot/test/").json()
     
     markup_inline = telebot.types.InlineKeyboardMarkup()
+    # надо доделать так, чтобы при создании кнопок префиксом был "вопрос" или "ответ", чтобы можно было переделать
     keyboards = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in tests]
     markup_inline.add(*keyboards)
     bot.send_message(
@@ -42,6 +43,8 @@ def callback_query(call):
     print(call.message.chat.id)
     print(questions)
     bot.send_message(call.message.chat.id,'cе тут')
+    markup_inline = telebot.types.InlineKeyboardMarkup()
+    keyboards = [telebot.types.InlineKeyboardButton(x.get("title"),callback_data=x.get("id")) for x in questions]
     # print(questions)
 if __name__ == "__main__":
     bot.polling(none_stop=True)
